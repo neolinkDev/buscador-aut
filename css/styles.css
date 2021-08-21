@@ -56,3 +56,16 @@ select {
 select:focus {
     border-top: 1px solid #1DA1F2;
 }
+
+@media (min-width: 550px) {
+    .contenedor-campos {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        column-gap: 3rem;    
+    }
+    .campo:nth-child(6) {
+        grid-column: 2/4;
+        margin: 0 auto;
+        width: 70%;
+    }
+}
