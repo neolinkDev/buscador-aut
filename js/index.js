@@ -48,12 +48,15 @@ function selectValues(e){
     }
     if(e.target.matches('#minimo')){
         searchObj.minimo = e.target.value;
+        filterCar();
     }
     if(e.target.matches('#maximo')){
         searchObj.maximo = e.target.value;
+        filterCar();
     }
     if(e.target.matches('#puertas')){
         searchObj.puertas = e.target.value;
+        filterCar();
     }
     if(e.target.matches('#transmision')){
         searchObj.transmision = e.target.value;
@@ -74,7 +77,7 @@ async function filterCar(){
 
      const fragment = d.createDocumentFragment();
      
-     const result = autos.filter(filterBrand).filter(filterYear);
+     const result = autos.filter(filterBrand).filter(filterYear).filter(filterMin).filter(filterMax).filter(filterDoor);
      //    console.log(result)
      
      result.forEach((auto) => {
@@ -95,9 +98,7 @@ async function filterCar(){
 
 // Limpia el HTML que muestra los resultados
 function cleanHTML(){
-    while(resultado.firstChild){
-        resultado.removeChild(resultado.firstChild);
-    }
+    while(resultado.firstChild) resultado.removeChild(resultado.firstChild);
 }
 
 // Función que filtra en base a la busqueda los autos de acuerdo a su marca
@@ -110,6 +111,24 @@ function filterBrand(auto){
 function filterYear(auto){
     const { year } = searchObj;
     if(year) return auto.year === parseInt(year);
+    return auto;
+}
+// Función que filtra en base al precio minimo del auto
+function filterMin(auto){
+    const { minimo } = searchObj;
+    if(minimo) return auto.precio >= minimo;
+    return auto;
+}
+// Función que filtra en base al precio máximo del auto
+function filterMax(auto){
+    const { maximo } = searchObj;
+    if(maximo) return auto.precio <= maximo;
+    return auto;
+}
+// Función que filtra en base número de puertas del auto
+function filterDoor(auto){
+    const { puertas } = searchObj;
+    if(puertas) return auto.puertas === parseInt(puertas);
     return auto;
 }
 
