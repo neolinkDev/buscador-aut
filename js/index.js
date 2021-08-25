@@ -66,17 +66,38 @@ function selectValues(e){
 // Función que filtra en base a la busqueda
 async function filterCar(){
    try {
-       const fileDB = await fetch('./db.json');
-       const db = await fileDB.json();
-       const { autos } = db;
-       
-       const result = autos.filter(filterBrand).filter(filterYear);
-       console.log(result)
-    
+     cleanHTML();
 
+     const fileDB = await fetch("./db.json");
+     const db = await fileDB.json();
+     const { autos } = db;
+
+     const fragment = d.createDocumentFragment();
+     
+     const result = autos.filter(filterBrand).filter(filterYear);
+     //    console.log(result)
+     
+     result.forEach((auto) => {
+       const { marca, modelo, year, puertas, transmision, precio, color } =
+         auto;
+       const autoHTML = d.createElement("P");
+       // autoHTML.classList.add('separar');
+       autoHTML.textContent = `
+                ${marca} ${modelo} - ${year} - ${puertas} Puertas - Transmisión: ${transmision} - Precio: $${precio} -  Color: ${color}
+            `;
+       fragment.appendChild(autoHTML);
+     });
+     resultado.appendChild(fragment);
    } catch (error) {
        console.log(error);
    }
+}
+
+// Limpia el HTML que muestra los resultados
+function cleanHTML(){
+    while(resultado.firstChild){
+        resultado.removeChild(resultado.firstChild);
+    }
 }
 
 // Función que filtra en base a la busqueda los autos de acuerdo a su marca
