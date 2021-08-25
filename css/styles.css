@@ -69,3 +69,15 @@ select:focus {
         width: 70%;
     }
 }
+
+.resultado {
+    text-align: center;
+    font-family: var(--Fuente);
+    font-size: 2rem;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+.resultado p {
+    border-bottom: 1px solid #e1e1e1;
+    padding-bottom: 2rem;
+}
